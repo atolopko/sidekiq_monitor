@@ -34,7 +34,8 @@ module Sidekiq
           'sidekiq_jobs.class_name',
           'sidekiq_jobs.args',
           'sidekiq_jobs.status',
-          'sidekiq_jobs.name'
+          'sidekiq_jobs.name',
+          'sidekiq_jobs.started_at'
         ]
         super(view)
       end
@@ -125,8 +126,21 @@ module Sidekiq
       def search_condition(column, value)
         column = column.split('.').last
         column_hash = @model_name.columns_hash[column]
-        if column_hash && [:string, :text].include?(column_hash.type)
-          return @model_name.arel_table[column].matches("%#{value}%")
+        if column_hash
+          if [:string, :text].include?(column_hash.type)
+            return @model_name.arel_table[column].matches("%#{value}%")
+          elsif column_hash.type == :datetime
+            begin
+              t = DateTime.parse(value)
+#binding.pry
+#              range = Arel::Nodes::Binary.new(t, t + 1)
+#              return @model_name.arel_table[column].between(range)
+#             return @model_name.arel_table[column].gt(t).and(@model_name.arel_table[column].lt(t + 1))
+              return @model_name.arel_table[column].lt(t)
+            rescue ArgumentError
+            end
+            return nil
+          end
         end
         @model_name.arel_table[column].eq(value)
       end

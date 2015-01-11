@@ -17,8 +17,8 @@ class SidekiqMonitor.JobsTable extends SidekiqMonitor.AbstractJobsTable
         result: 10
         args: 11
       column_options: [
-        { bVisible: false }
-        { bVisible: false }
+        { bVisible: true }
+        { bVisible: true }
         null
         null
         { bSortable: false }
