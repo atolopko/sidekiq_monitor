@@ -18,7 +18,10 @@ class SidekiqMonitor.JobsTable extends SidekiqMonitor.AbstractJobsTable
         args: 11
       column_options: [
         { bVisible: true }
-        { bVisible: true }
+        { 
+          fnRender: (oObj) =>
+          """#{oObj.aData[@columns.jid]} <a href="logprovider.com/?query=#{oObj.aData[@columns.jid]}">Log</a>"""
+        }
         null
         null
         { bSortable: false }
