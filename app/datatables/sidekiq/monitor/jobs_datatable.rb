@@ -25,6 +25,7 @@ module Sidekiq
           'sidekiq_jobs.started_at',
           'COALESCE(sidekiq_jobs.finished_at, NOW()) - sidekiq_jobs.started_at',
           'sidekiq_jobs.status',
+          'sidekiq_jobs.log_link',
           'sidekiq_jobs.result',
           'sidekiq_jobs.args'
         ]
@@ -55,6 +56,7 @@ module Sidekiq
             get_duration(job),
             job.result.blank? ? nil : job.result[:message],
             job.status,
+            "http://logprovider.com/?query=#{job.jid}",
             job.result,
             job.args
           ]

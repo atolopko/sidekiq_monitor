@@ -83,6 +83,7 @@ class SidekiqMonitor.AbstractJobsTable
     started_at = job[@columns.started_at]
     duration = job[@columns.duration]
     status = job[@columns.status]
+    log_link = job[@columns.job_link]
     result = job[@columns.result]
     args = job[@columns.args]
 
@@ -161,6 +162,10 @@ class SidekiqMonitor.AbstractJobsTable
             <tr>
               <th>Status</th>
               <td>#{status}</td>
+            </tr>
+            <tr>
+              <th>Log</th>
+              <td>#{log_link}</td>
             </tr>
           </table>
           #{result_html}

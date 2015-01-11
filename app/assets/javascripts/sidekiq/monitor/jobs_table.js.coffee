@@ -14,14 +14,12 @@ class SidekiqMonitor.JobsTable extends SidekiqMonitor.AbstractJobsTable
         duration: 7
         message: 8
         status: 9
-        result: 10
-        args: 11
+        log_link: 10
+        result: 11
+        args: 12
       column_options: [
-        { bVisible: true }
-        { 
-          fnRender: (oObj) =>
-          """#{oObj.aData[@columns.jid]} <a href="logprovider.com/?query=#{oObj.aData[@columns.jid]}">Log</a>"""
-        }
+        {}
+        {}
         null
         null
         { bSortable: false }
@@ -52,6 +50,11 @@ class SidekiqMonitor.JobsTable extends SidekiqMonitor.AbstractJobsTable
               html += """<a href="#" class="btn btn-mini btn-primary retry-job" data-job-id="#{oObj.aData[@columns.id]}">Retry<a>"""
             """<span class="action-buttons">#{html}</span>"""
         }
+        {
+          bSortable: false, 
+          fnRender: (oObj) =>
+                    """<a href=#{oObj.aData[@columns.log_link]}">Log</a>"""
+        }                   
         { bVisible: false }
         { bVisible: false }
       ]
