@@ -56,7 +56,7 @@ module Sidekiq
             get_duration(job),
             job.result.blank? ? nil : job.result[:message],
             job.status,
-            "http://logprovider.com/?query=#{job.jid}",
+            "http://logprovider.com/?query=JID-#{job.jid}",
             job.result,
             job.args
           ]
